@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="display-1 text-center">Authors</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    
+        <form method="get">
+            <div class="mb-3">
+                <label for="author_name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="author_name" name="author_name">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        
+        {% if authors %}
+        <table class="table table-striped table-bordered mt-4">
+            <thead class="text-center">
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for author in authors %}
+                <tr>
+                    <td>{{ author.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock content %}
