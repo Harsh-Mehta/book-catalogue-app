@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="display-1 text-center">Books</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    
+        <form method="get">
+            <div class="mb-3">
+                <label for="book_name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="book_name" name="book_name">
+            </div>
+            <div class="mb-3">
+                <label for="book_author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="book_author" name="book_author">
+            </div>
+            <div class="mb-3">
+                <label for="book_genre" class="form-label">Genre</label>
+                <input type="text" class="form-control" id="book_genre" name="book_genre">
+            </div>
+            <div class="mb-3">
+                <label for="book_popularity" class="form-label">Popularity</label>
+                <input type="number" max="{{ max_popularity }}" class="form-control" id="book_popularity" name="book_popularity">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        {% if books %}
+        <table class="table table-striped table-bordered mt-4">
+            <thead class="text-center">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Popularity</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.genre }}</td>
+                    <td>{{ book.popularity }}/{{ max_popularity }}</td>
+                    <td>{{ book.description }}</td>
+                    <td class="text-center">
+                        <a href="/reading_list/add/{{ book.pk }}">
+                            <i class="bi bi-plus-square-fill text-success"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock content %}
